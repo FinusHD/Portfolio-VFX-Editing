@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linus Piur</title>
+    <link rel="stylesheet" href="..\CSS\style.css">
+</head>
+<body>
+
+<nav>
+    <a id="logoLink" href="index.html">
+        <img src="..\Bilder\Portfolio_Logo.png" alt="Linus Piur Logo">
+    </a>
+
+    <div class="dropdown">
+        <a class="noMouseTextCurser">VFX</a>
+        <div class="dropdown-menu">
+            <a href="animation.html">Animation</a>
+            <a href="render.html">Still Render</a>
+            <a href="models.html">Models</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <a class="noMouseTextCurser" id="underline">Editing</a>
+        <div class="dropdown-menu">
+            <a href="vids.html">Videos</a>
+            <a href="shorts.html">Shorts</a>
+            <a href="thumbs.html" class="underline">Bilder</a>
+        </div>
+    </div>
+
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<img src="..\Gifs\Editing_Showreel.gif" width="100%">
+
+<div class="media-grid">
+    <img src="../Bilder/FinusThumbs/maxresdefault.jpg"                          onclick="openOverlay(this)">
+    <img src="../Bilder/FinusThumbs/maxresdefault2.jpg"                         onclick="openOverlay(this)">
+    <img src="../Bilder/FinusThumbs/MC_in_einer_Nusschale_Thumb.jpg"            onclick="openOverlay(this)">
+    <img src="../Bilder/FinusThumbs/MKW_Thumb_1_high_Res.png"                   onclick="openOverlay(this)">
+    <img src="../Bilder/FinusThumbs/MKW_Thumb_2_high_Res.png"                   onclick="openOverlay(this)">
+    <img src="../Bilder/FinusThumbs/MKW_Thumb_3_high_Res.png"                   onclick="openOverlay(this)">
+    <img src="../Bilder/FinusThumbs/Oly_Vol._2_thumb.jpg"                       onclick="openOverlay(this)">
+    <img src="../Bilder/FinusThumbs/Skyward_Sword_in_a_nutshell_Ver_2.5.jpg"    onclick="openOverlay(this)">
+    <img src="../Bilder/FinusThumbs/Thumbnail_OOT_IeN.jpg"                      onclick="openOverlay(this)">
+    <img src="../Bilder/FinusThumbs/TOTK_Bossrush_Thumb_1.jpg"                  onclick="openOverlay(this)">
+    <img src="../Bilder/FinusThumbs/TOTK_Bossrush_Thumb_2.jpg"                  onclick="openOverlay(this)">
+</div>
+
+<!-- Overlay -->
+<div id="overlay" onclick="closeOverlay()">
+    <div id="overlay-content" onclick="event.stopPropagation()">
+        <img id="overlay-img">
+    </div>
+    <span id="overlay-close" onclick="closeOverlay()">✕</span>
+    <span class="overlay-arrow" id="arrow-left"  onclick="event.stopPropagation(); changeImage(-1)">&#8592;</span>
+    <span class="overlay-arrow" id="arrow-right" onclick="event.stopPropagation(); changeImage(1)">&#8594;</span>
+</div>
+
+<script>
+    const images = Array.from(document.querySelectorAll(".media-grid img"));
+    let currentIndex = 0;
+
+    function openOverlay(imgEl) {
+        currentIndex = images.indexOf(imgEl);
+        document.getElementById("overlay-img").src = imgEl.src;
+        document.getElementById("overlay").style.display = "flex";
+    }
+
+    function changeImage(direction) {
+        currentIndex = (currentIndex + direction + images.length) % images.length;
+        document.getElementById("overlay-img").src = images[currentIndex].src;
+    }
+
+    function closeOverlay() {
+        document.getElementById("overlay").style.display = "none";
+    }
+
+    document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape") closeOverlay();
+        if (e.key === "ArrowLeft") changeImage(-1);
+        if (e.key === "ArrowRight") changeImage(1);
+    });
+</script>
+
+</body>
+</html>

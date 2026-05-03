@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linus Piur</title>
+    <link rel="stylesheet" href="..\CSS\style.css">
+</head>
+<body>
+
+<nav>
+    <a id="logoLink" href="index.html">
+        <img src="..\Bilder\Portfolio_Logo.png" alt="Linus Piur Logo">
+    </a>
+
+    <div class="dropdown">
+        <a class="noMouseTextCurser">VFX</a>
+        <div class="dropdown-menu">
+            <a href="animation.html">Animation</a>
+            <a href="render.html">Still Render</a>
+            <a href="models.html">Models</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <a class="noMouseTextCurser">Editing</a>
+        <div class="dropdown-menu">
+            <a href="vids.html">Videos</a>
+            <a href="shorts.html">Shorts</a>
+            <a href="thumbs.html">Bilder</a>
+        </div>
+    </div>
+
+    <a href="about.html">About</a>
+    <a href="contact.html" id="underline">Contact</a>
+</nav>
+
+<div class="contact-wrapper">
+    <div class="contact-form">
+        <input type="text" id="name" name="name" placeholder="Name...">
+        <input type="email" id="email" name="email" placeholder="Email...">
+        <textarea id="message" name="message" placeholder="Message..."></textarea>
+        <button id="sendBtn" onclick="sendEmail(event)">Send</button>
+        <p id="statusMsg"></p>
+    </div>
+</div>
+
+<script>
+    async function sendEmail(e) {
+        e.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const message = document.getElementById("message").value.trim();
+        const status = document.getElementById("statusMsg");
+        const btn = document.getElementById("sendBtn");
+
+        if (!name || !email || !message) {
+            status.style.color = "#ff6b6b";
+            status.textContent = "Bitte alle Felder ausfüllen.";
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = "Sending...";
+
+        const response = await fetch("https://formspree.io/f/xkoynrea", { // <-- hier deine URL
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, message })
+        });
+
+        if (response.ok) {
+            status.style.color = "#6bff8e";
+            status.textContent = "Nachricht gesendet!";
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("message").value = "";
+        } else {
+            status.style.color = "#ff6b6b";
+            status.textContent = "Fehler beim Senden. Bitte nochmal versuchen.";
+        }
+
+        btn.textContent = "Send";
+        btn.disabled = false;
+    }
+</script>
+
+</body>
+</html>

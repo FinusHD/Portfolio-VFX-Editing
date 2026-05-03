@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linus Piur</title>
+    <link rel="stylesheet" href="..\CSS\style.css">
+</head>
+<body>
+
+<nav>
+    <a id="logoLink" href="index.html">
+        <img src="..\Bilder\Portfolio_Logo.png" alt="Linus Piur Logo">
+    </a>
+
+    <div class="dropdown">
+        <a class="noMouseTextCurser" id="underline">VFX</a>
+        <div class="dropdown-menu">
+            <a href="animation.html">Animation</a>
+            <a href="render.html">Still Render</a>
+            <a href="models.html" class="underline">Models</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <a class="noMouseTextCurser">Editing</a>
+        <div class="dropdown-menu">
+            <a href="vids.html">Videos</a>
+            <a href="shorts.html">Shorts</a>
+            <a href="thumbs.html">Bilder</a>
+        </div>
+    </div>
+
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<img src="..\Gifs\VFX_Showreel.gif" width="100%">
+
+<div class="media-grid">
+    <img src="../Models/Model_1/Untitled.png"  onclick="openOverlay(this)">
+    <img src="../Models/Model_1/Untitled2.png" onclick="openOverlay(this)">
+    <img src="../Models/Model_2/Untitled2.png" onclick="openOverlay(this)">
+    <img src="../Models/Model_2/Untitled.png"  onclick="openOverlay(this)">
+    <img src="../Models/Model_3/Untitled.png"  onclick="openOverlay(this)">
+    <img src="../Models/Model_3/Untitled2.png" onclick="openOverlay(this)">
+    <img src="../Models/Model_4/Untitled.png"  onclick="openOverlay(this)">
+    <img src="../Models/Model_4/Untitled2.png" onclick="openOverlay(this)">
+    <img src="../Models/Model_5/Untitled2.png" onclick="openOverlay(this)">
+    <img src="../Models/Model_5/Untitled.png"  onclick="openOverlay(this)">
+</div>
+
+<!-- Overlay -->
+<div id="overlay" onclick="closeOverlay()">
+    <div id="overlay-content" onclick="event.stopPropagation()">
+        <img id="overlay-img">
+    </div>
+    <span id="overlay-close" onclick="closeOverlay()">✕</span>
+    <span class="overlay-arrow" id="arrow-left"  onclick="event.stopPropagation(); changeImage(-1)">&#8592;</span>
+    <span class="overlay-arrow" id="arrow-right" onclick="event.stopPropagation(); changeImage(1)">&#8594;</span>
+</div>
+
+<script>
+    const images = Array.from(document.querySelectorAll(".media-grid img"));
+    let currentIndex = 0;
+
+    function openOverlay(imgEl) {
+        currentIndex = images.indexOf(imgEl);
+        document.getElementById("overlay-img").src = imgEl.src;
+        document.getElementById("overlay").style.display = "flex";
+    }
+
+    function changeImage(direction) {
+        currentIndex = (currentIndex + direction + images.length) % images.length;
+        document.getElementById("overlay-img").src = images[currentIndex].src;
+    }
+
+    function closeOverlay() {
+        document.getElementById("overlay").style.display = "none";
+    }
+
+    document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape") closeOverlay();
+        if (e.key === "ArrowLeft") changeImage(-1);
+        if (e.key === "ArrowRight") changeImage(1);
+    });
+</script>
+
+</body>
+</html>
